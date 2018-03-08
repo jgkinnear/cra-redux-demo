@@ -12,7 +12,31 @@ const initialState = {
 };
 
 const todoItemReducer = (state = initialState, action) => {
-	return state;
+
+	switch(action.type) {
+
+		case 'TOGGLE_STATUS':
+
+			if (!state.items[action.payload]) {
+				return state;
+			}
+
+			let item = {
+				...state.items[action.payload],
+			};
+			item.done = !item.done;
+
+			return {
+				...state,
+				items: {
+					...state.items,
+					[item.id]: item,
+				}
+			};
+
+		default:
+			return state;
+	}
 };
 
 

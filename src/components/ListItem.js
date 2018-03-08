@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const ListItem = ({onClick, children, strikeThrough}) => {
+export const ListItem = ({id, onClick, children, strikeThrough}) => {
 
 	let style = {
 
@@ -11,5 +11,9 @@ export const ListItem = ({onClick, children, strikeThrough}) => {
 		style.color = 'grey';
 	}
 
-	return <li onClick={onClick} style={style}>{children}</li>
+	const handleClick = () => {
+		onClick(id);
+	};
+
+	return <li onClick={handleClick} style={style}>{children}</li>
 };

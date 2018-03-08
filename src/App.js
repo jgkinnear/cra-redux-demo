@@ -4,8 +4,14 @@ import logo from './logo.svg';
 import './App.css';
 import {List} from './components/List';
 import {ListItem} from './components/ListItem';
+import {toggleItemStatus} from './todoItemActions';
 
 class App extends Component {
+
+	handleItemClick = (id) => {
+		this.props.toggleItemStatus(id);
+	};
+
 	render() {
 		return (
 			<div className="App">
@@ -16,7 +22,7 @@ class App extends Component {
 				<p className="App-intro">
 					<List>
 						{this.props.items.map((item) => {
-							return <ListItem strikeThrough={item.done}>{item.name}</ListItem>
+							return <ListItem id={item.id} onClick={this.handleItemClick} strikeThrough={item.done}>{item.name}</ListItem>
 						})}
 					</List>
 				</p>
@@ -36,8 +42,12 @@ const mapStateToProps = (state) => {
 	};
 };
 
-const mapDispatchToProps = () => {
-	return {};
+const mapDispatchToProps = (dispatch) => {
+	return {
+		toggleItemStatus: (id) => {
+			return dispatch(toggleItemStatus(id));
+		}
+	};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
